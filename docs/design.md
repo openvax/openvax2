@@ -22,7 +22,8 @@ Start by evaluating `datacache`, `gtfparse`, `sercol`, `pyensembl`, `varcode`,
 `mhcgnomes` alongside them, with their source ownership confirmed. The
 [inventory](inventory.md) distinguishes these candidates from adjacent projects.
 
-Proposed eventual structure; these directories are not implemented yet:
+Proposed eventual structure; library directories and the workspace are not
+implemented yet:
 
 ```text
 openvax2/
@@ -36,7 +37,9 @@ openvax2/
       LICENSE
     varcode/
     isovar/
+    openvax/              # dependency-only combined-stack metapackage
     ...
+  releases/               # registry and publication state
   docs/
   .github/workflows/
 ```
@@ -52,6 +55,11 @@ MHCflurry can remain an external package initially; if imported later, its model
 and training workflows can remain separate from the core workspace. Heavy model
 files, reference downloads, caches, and analysis outputs do not belong in the
 source import. Preserve mechanisms for acquiring required versioned assets.
+
+Provide a separate `openvax` metapackage selecting a tested component set and a
+runtime container adding locked Python and system dependencies. Both are planned
+products. They do not merge library APIs or force a shared library version. See
+[combined artifacts](distribution.md) and [contribution workflows](../CONTRIBUTING.md).
 
 ## Development dependencies and published dependencies
 
@@ -136,7 +144,10 @@ updates. If a consumer starts requiring a new producer version, its changed
 dependency metadata requires a consumer release even if its code is unchanged.
 An unchanged consumer whose existing bounds still apply does not need a release.
 Root planning and tooling documentation alone should not release every package.
-This proposed policy must explicitly replace conflicting imported instructions.
+The user explicitly requested version-gated publishing. This policy must replace
+conflicting imported instructions during migration. The current read-only
+[release planner](../releases/README.md) selects version increases against a
+recorded published baseline; the production publisher remains future work.
 
 Release tags are package-qualified, for example `varcode/v10.10.0` (illustrative,
 not a reserved release). Each package keeps one authoritative version source;
@@ -179,6 +190,11 @@ multiple PRs. Use that approach for packages with separate ownership or weak
 coupling. A single combined distribution would reduce release count but change
 the installation footprint and existing package boundaries. A single version
 for every distribution would simplify numbering at the cost of unrelated releases.
+
+A dependency-only metapackage provides a combined install while retaining
+independent distributions. Its own version identifies a tested component set;
+an image revision can update system dependencies without republishing Python
+packages. This is the recommended combined-artifact approach.
 
 The monorepo adds migration work for history, issue links, CI paths, documentation
 hosting, and publishing permissions. The first implementation should preserve

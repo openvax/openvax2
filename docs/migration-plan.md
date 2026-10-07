@@ -1,8 +1,9 @@
 # Migration plan
 
-Status: documentation phase, 2026-10-07. All implementation checkboxes below
-remain open. Ongoing PR completion is a prerequisite, not something this planning
-task has verified. See the [design](design.md) and [decisions](decisions.md).
+Status: design and release preparation, 2026-10-07. Package migration and
+production publishing remain pending. Ongoing PR completion is a prerequisite,
+not something this task has verified. See the [design](design.md) and
+[decisions](decisions.md).
 
 ## Phase 0: planning deliverables
 
@@ -10,6 +11,9 @@ task has verified. See the [design](design.md) and [decisions](decisions.md).
 - [x] Inventory a representative set of local source commits and their relationships.
 - [x] Separate proposed defaults from decisions needing evidence.
 - [x] Record implementation gates and preservation of existing local work.
+- [x] Publish the planning repository publicly with Apache 2.0 licensing.
+- [x] Prepare a read-only package-version release planner and CI tests.
+- [x] Document individual development, the combined metapackage, and runtime image.
 
 ## Phase 1: select a ready baseline
 
@@ -89,7 +93,10 @@ behavior or packaging differences. Workspace-only success is insufficient.
 
 ## Phase 4: rehearse independent releases
 
-- [ ] Implement version/release-note checks and a manifest for selected packages.
+- [ ] Register migrated packages and seed verified published-version baselines
+  for the existing planner; extend it for any additional version-source schemes.
+- [ ] Implement release-note/artifact checks and the production publication
+  manifest, including registry reconciliation and partial-release recovery.
 - [ ] Rehearse building, staging, and verifying a producer/consumer release pair
   while leaving an unrelated package untouched.
 - [ ] Verify dependency ordering, cycle detection, package-qualified tags, and
@@ -100,6 +107,11 @@ behavior or packaging differences. Workspace-only success is insufficient.
   when that publishing rehearsal is authorized.
 - [ ] Prepare documentation links, issue references, project URLs, and the
   transition notices for old repositories.
+- [ ] Confirm the `openvax` PyPI name/ownership and implement the metapackage with
+  tested component pins and its own version. Verify its clean pip install.
+- [ ] Export production locks without editable sources; build and smoke-test
+  the selected CPU runtime image with versioned system dependencies and explicit
+  data/model acquisition. Define immutable tags and image revision handling.
 
 Exit evidence: a reviewable release manifest, verified artifacts, rehearsal
 results, and a concrete cutover checklist. This phase does not itself imply
