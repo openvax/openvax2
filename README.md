@@ -3,10 +3,8 @@
 
 # OpenVax2
 
-**One development repository. Independent Python packages. A tested combined stack.**
-
-Explore the [package atlas](https://openvax.github.io/openvax2/) for the workflow,
-package responsibilities, and interactive dependency map.
+The [package atlas](https://openvax.github.io/openvax2/) documents the workflow,
+package responsibilities, and dependency relationships.
 
 OpenVax2 is the public home for planning the OpenVax monorepo: annotation,
 variant interpretation, peptide generation, MHC prediction, and vaccine ranking.
@@ -18,7 +16,7 @@ migrated and no packages or container images are published from this repository
 yet. Ongoing PRs continue in their original repositories before the implementation
 sweep. The [source inventory](docs/inventory.md) records a dated planning snapshot.
 
-## What will users install?
+## Installation and distribution
 
 We plan to support all three paths. The combined products are conveniences built
 from the same individual releases; users can keep installing just one library.
@@ -29,7 +27,7 @@ from the same individual releases; users can keep installing just one library.
 | `openvax` PyPI metapackage | Install a tested combination of OpenVax Python packages with one command | Its own stack version pins the selected component versions | Planned; name availability/ownership must be confirmed before publishing |
 | `ghcr.io/openvax/openvax2` runtime image | Run that combined stack with Python and required redistributable system libraries | Stack version plus image revision; record immutable digest | Planned |
 
-**Yes, the intended Python convenience install is `pip install openvax`.** It
+The planned `openvax` distribution
 will be a small dependency-only metapackage under `packages/openvax/`, not a copy
 of all the library source or a replacement import namespace. Existing imports
 such as `from varcode import Variant` will remain. That install command is a
