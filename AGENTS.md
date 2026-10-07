@@ -8,6 +8,8 @@ site explaining the ecosystem. Maintain and deploy the site from `site/` using
 the Pages workflow. The package migration sweep remains deferred until ongoing
 package PRs finish.
 
+- Use descriptive technical headings and factual prose. Avoid slogans and
+  promotional phrasing in the site and documentation.
 - Work on a documentation branch; keep recommendations distinct from accepted
   decisions and observed facts.
 - Read sibling repositories as evidence. Preserve their branches, worktrees,
