@@ -3,8 +3,10 @@
 ## Current scope
 
 The user requested documentation and design planning, then authorized public
-hosting, Apache 2.0 licensing, and preparation for independent package releases.
-The package migration sweep remains deferred until ongoing package PRs finish.
+hosting, Apache 2.0 licensing, independent release preparation, and a GitHub Pages
+site explaining the ecosystem. Maintain and deploy the site from `site/` using
+the Pages workflow. The package migration sweep remains deferred until ongoing
+package PRs finish.
 
 - Work on a documentation branch; keep recommendations distinct from accepted
   decisions and observed facts.

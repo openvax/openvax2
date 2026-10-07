@@ -1,0 +1,244 @@
+{
+  "snapshot": "2026-10-07",
+  "packages": [
+    {
+      "id": "gtfparse",
+      "label": "GTFparse",
+      "category": "Reference annotations",
+      "tagline": "Read gene annotation files",
+      "input": "GTF files",
+      "output": "Tabular gene and transcript features",
+      "summary": "Parses GTF into data tables that reference-aware tools can use.",
+      "boundary": "Handles the file format; PyEnsembl adds indexed biological queries.",
+      "repository": "https://github.com/openvax/gtfparse",
+      "dependencies": []
+    },
+    {
+      "id": "pyensembl",
+      "label": "PyEnsembl",
+      "category": "Reference annotations",
+      "tagline": "Query genes and transcripts",
+      "input": "Genome annotation and sequence files",
+      "output": "Genes, transcripts, exons, and sequence lookups",
+      "summary": "Provides local access to Ensembl annotations and sequences for a chosen reference.",
+      "boundary": "Keeps reference identity and transcript context underneath variant interpretation.",
+      "repository": "https://github.com/openvax/pyensembl",
+      "dependencies": [
+        "datacache",
+        "gtfparse",
+        "serializable"
+      ]
+    },
+    {
+      "id": "varcode",
+      "label": "Varcode",
+      "category": "Variant interpretation",
+      "tagline": "Interpret genomic variants",
+      "input": "Variants and transcript annotations",
+      "output": "Predicted consequences and mutant proteins",
+      "summary": "Predicts how variants affect genes, transcripts, and protein sequence.",
+      "boundary": "Proposes transcript and protein consequences; RNA evidence is handled by Isovar.",
+      "repository": "https://github.com/openvax/varcode",
+      "dependencies": [
+        "pyensembl",
+        "gtfparse",
+        "serializable",
+        "sercol"
+      ]
+    },
+    {
+      "id": "isovar",
+      "label": "Isovar",
+      "category": "Variant interpretation",
+      "tagline": "Reconstruct RNA-supported proteins",
+      "input": "Variant calls and aligned tumor RNA reads",
+      "output": "RNA-supported mutant protein sequences",
+      "summary": "Reconstructs and translates mutant RNA sequences around variants.",
+      "boundary": "Uses observed reads to establish sequence evidence rather than filling gaps from a reference.",
+      "repository": "https://github.com/openvax/isovar",
+      "dependencies": [
+        "pyensembl",
+        "varcode",
+        "osteosarc"
+      ]
+    },
+    {
+      "id": "mhcgnomes",
+      "label": "MHCgnomes",
+      "category": "MHC and prediction",
+      "tagline": "Normalize MHC allele names",
+      "input": "MHC names across species and conventions",
+      "output": "Structured, standardized allele identities",
+      "summary": "Parses MHC nomenclature so tools agree on which allele a name refers to.",
+      "boundary": "Identity parsing is shared infrastructure, separate from sequence curation or prediction.",
+      "repository": "https://github.com/pirl-unc/mhcgnomes",
+      "dependencies": []
+    },
+    {
+      "id": "mhcseqs",
+      "label": "MHCseqs",
+      "category": "MHC and prediction",
+      "tagline": "Curate MHC protein sequences",
+      "input": "MHC sequence sources and allele identities",
+      "output": "Curated sequences and binding-groove regions",
+      "summary": "Downloads, curates, and extracts regions from MHC protein sequences.",
+      "boundary": "Provides sequence resources; it is not itself a peptide-binding predictor.",
+      "repository": "https://github.com/pirl-unc/mhcseqs",
+      "dependencies": [
+        "mhcgnomes"
+      ]
+    },
+    {
+      "id": "mhcflurry",
+      "label": "MHCflurry",
+      "category": "MHC and prediction",
+      "tagline": "Predict class I presentation",
+      "input": "Peptides, MHC alleles, and model bundles",
+      "output": "Binding, processing, and presentation predictions",
+      "summary": "Provides trained models for MHC class I binding, antigen processing, and presentation.",
+      "boundary": "Owns the models; MHCTools provides a common interface across prediction tools.",
+      "repository": "https://github.com/openvax/mhcflurry",
+      "dependencies": [
+        "mhcgnomes"
+      ]
+    },
+    {
+      "id": "mhctools",
+      "label": "MHCTools",
+      "category": "MHC and prediction",
+      "tagline": "Use predictors through one interface",
+      "input": "Peptides or proteins, alleles, and a predictor",
+      "output": "Structured prediction results",
+      "summary": "Runs binding, presentation, immunogenicity, and processing predictors through shared interfaces.",
+      "boundary": "Standardizes access and results across predictors, including MHCflurry and external tools.",
+      "repository": "https://github.com/openvax/mhctools",
+      "dependencies": [
+        "pyensembl",
+        "sercol",
+        "mhcflurry",
+        "mhcgnomes"
+      ]
+    },
+    {
+      "id": "topiary",
+      "label": "Topiary",
+      "category": "Selection and reporting",
+      "tagline": "Filter and prioritize peptides",
+      "input": "Antigen sequences or variants and prediction settings",
+      "output": "Filtered and ranked peptide candidates",
+      "summary": "Combines peptide prediction with composable filtering and ranking.",
+      "boundary": "Supports multiple antigen sources; Vaxrank adds the personalized candidate-ranking workflow.",
+      "repository": "https://github.com/openvax/topiary",
+      "dependencies": [
+        "mhctools",
+        "varcode",
+        "gtfparse",
+        "mhcgnomes",
+        "pyensembl",
+        "osteosarc"
+      ]
+    },
+    {
+      "id": "vaxrank",
+      "label": "Vaxrank",
+      "category": "Selection and reporting",
+      "tagline": "Rank vaccine candidates",
+      "input": "Variants, RNA evidence, HLA type, or imported candidate evidence",
+      "output": "Ranked vaccine candidates and reports",
+      "summary": "Brings variant interpretation, peptide evidence, and prediction together for neoantigen ranking.",
+      "boundary": "Coordinates a candidate-ranking workflow using specialized libraries underneath it.",
+      "repository": "https://github.com/openvax/vaxrank",
+      "dependencies": [
+        "datacache",
+        "osteosarc",
+        "pyensembl",
+        "varcode",
+        "isovar",
+        "mhcgnomes",
+        "mhctools",
+        "topiary",
+        "serializable",
+        "oncoref"
+      ]
+    },
+    {
+      "id": "datacache",
+      "label": "DataCache",
+      "category": "Shared utilities",
+      "tagline": "Acquire and cache data",
+      "input": "Remote datasets and cache requests",
+      "output": "Reusable, locally cached data",
+      "summary": "Handles downloading, verification, transformation, and caching of data used by other packages.",
+      "boundary": "Data acquisition and storage are shared mechanics, separate from the meaning of each dataset.",
+      "repository": "https://github.com/openvax/datacache",
+      "dependencies": []
+    },
+    {
+      "id": "serializable",
+      "label": "Serializable",
+      "category": "Shared utilities",
+      "tagline": "Serialize Python objects",
+      "input": "Structured Python objects",
+      "output": "Dictionary and JSON representations",
+      "summary": "Supplies reusable object serialization helpers.",
+      "boundary": "Keeps serialization mechanics out of domain-specific classes.",
+      "repository": "https://github.com/iskandr/serializable",
+      "dependencies": []
+    },
+    {
+      "id": "sercol",
+      "label": "Sercol",
+      "category": "Shared utilities",
+      "tagline": "Work with domain collections",
+      "input": "Collections of structured objects",
+      "output": "Filtered, grouped, and serializable collections",
+      "summary": "Provides collection helpers used by variant and epitope collections.",
+      "boundary": "Shared collection behavior stays independent of the objects being analyzed.",
+      "repository": "https://github.com/openvax/sercol",
+      "dependencies": [
+        "serializable"
+      ]
+    },
+    {
+      "id": "osteosarc",
+      "label": "Osteosarc",
+      "category": "Reference data and evidence",
+      "tagline": "Access a public research dataset",
+      "input": "Public osteosarcoma dataset metadata and sequencing files",
+      "output": "Queryable data and selected read fixtures",
+      "summary": "Exposes a public osteosarcoma dataset and helps extract small read fixtures.",
+      "boundary": "Supplies provenance-rich research and test data; it is not a ranking algorithm.",
+      "repository": "https://github.com/iskandr/osteosarc",
+      "dependencies": [
+        "datacache"
+      ]
+    },
+    {
+      "id": "oncoref",
+      "label": "Oncoref",
+      "category": "Reference data and evidence",
+      "tagline": "Use curated cancer reference facts",
+      "input": "Cancer, gene, cohort, and expression reference sources",
+      "output": "Canonical identities and reference measurements",
+      "summary": "Provides curated cancer reference data, expression references, and gene identity.",
+      "boundary": "Reference facts are reusable underneath downstream gene panels and analyses.",
+      "repository": "https://github.com/pirl-unc/oncoref",
+      "dependencies": []
+    },
+    {
+      "id": "pirlygenes",
+      "label": "PirlyGenes",
+      "category": "Reference data and evidence",
+      "tagline": "Select curated gene panels",
+      "input": "Gene identities, curated sets, and reference expression",
+      "output": "Gene panels, gene families, and expression resources",
+      "summary": "Provides curated cancer gene sets and reference expression resources.",
+      "boundary": "Owns purpose-specific gene selections, with shared reference mechanics delegated to Oncoref.",
+      "repository": "https://github.com/pirl-unc/pirlygenes",
+      "dependencies": [
+        "oncoref",
+        "pyensembl"
+      ]
+    }
+  ]
+}
