@@ -1,6 +1,8 @@
-# OpenVax monorepo planning
+# OpenVax2 monorepo planning
 
 Status: **design draft; implementation deferred**. Started 2026-10-07.
+
+Repository: [openvax/openvax2](https://github.com/openvax/openvax2).
 
 The proposed monorepo would let related OpenVax libraries evolve in one pull
 request while continuing to ship independent PyPI packages. Existing package
@@ -34,7 +36,7 @@ PRs land and the migration baseline is recorded.
 
 These are proposed defaults, not an approved migration or a working workspace.
 There is no root `pyproject.toml`, lockfile, package import, or publishing workflow
-yet. Repository hosting and the final package list remain open decisions.
+yet. The final package list remains an open decision.
 
 ## Next milestone
 

@@ -25,7 +25,7 @@ Start by evaluating `datacache`, `gtfparse`, `sercol`, `pyensembl`, `varcode`,
 Proposed eventual structure; these directories are not implemented yet:
 
 ```text
-openvax/
+openvax2/
   pyproject.toml           # non-published workspace/tooling root
   uv.lock
   packages/

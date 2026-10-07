@@ -1,4 +1,4 @@
-# OpenVax planning repository
+# OpenVax2 planning repository
 
 ## Current scope
 
@@ -22,14 +22,15 @@ the user requests implementation.
 
 ## Shared Python environment
 
-When maintaining `/Users/iskander/code/shared-virtual-env`, keep packages on the
-most recent mutually compatible stable versions. Upgrade related packages
-together when necessary to resolve constraints. Preserve editable checkouts and
-local work; refresh stale editable package metadata from the existing checkout.
-Verify with `pip check` and relevant tests, and report any constraint that
-prevents a current version. Do not silently downgrade packages or force
-incompatible installs. Distinguish this shared environment from repository-local
-release environments.
+When maintaining `/Users/iskander/code/shared-virtual-env`, keep the OpenVax stack
+and its dependencies on the most recent mutually compatible stable versions.
+Leave unrelated notebook, AI, and other packages outside this maintenance scope.
+Upgrade related packages together when necessary to resolve constraints.
+Preserve editable checkouts and local work; refresh stale editable package
+metadata from the existing checkout. Verify with `pip check` and relevant tests,
+and report any constraint that prevents a current version. Do not silently
+downgrade packages or force incompatible installs. Distinguish this shared
+environment from repository-local release environments.
 
 This planning task does not maintain that environment. Future workspace and
 release validation should use dedicated environments. Switching the shared

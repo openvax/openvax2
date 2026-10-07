@@ -34,8 +34,9 @@ may be marked not applicable with a reason. No blank entry means ready.
   stable version that remains blocked and why; do not silently downgrade.
 - [ ] Inventory uncommitted work, branches, worktrees, and editable paths without
   resetting or moving existing checkouts.
-- [ ] Settle the implementation decisions needed from D01–D08. Hosting can remain
-  local for a rehearsal, but must be decided before remote creation.
+- [ ] Settle the remaining implementation decisions needed from D01–D08. The
+  planning repository is hosted at `openvax/openvax2`; confirm package ownership
+  and migration access before source import.
 
 Exit evidence: per-package readiness rows, a selected compatible source set, and
 an explicit user request to begin the implementation sweep.

@@ -11,8 +11,12 @@ implementation or permission to publish packages.
   existing names and imports should continue working.
 - **Preserve the shared environment and local work.** The user's environment
   maintenance policy is recorded in [AGENTS.md](../AGENTS.md).
+- **Hosting.** The user selected `openvax/openvax2` on GitHub. The repository is
+  public, following the existing OpenVax libraries, with `main` as its default
+  branch. This changes the planning repository's location, not the implementation
+  scope.
 
-## Decisions to settle before implementation or cutover
+## Decision register
 
 | ID | Decision | Proposed default | Evidence or decision needed |
 | --- | --- | --- | --- |
@@ -21,7 +25,7 @@ implementation or permission to publish packages.
 | D03 | Dependency manager | uv workspace for the compatible core | Resolve post-PR constraints in a fresh environment and record chosen uv/Python versions |
 | D04 | Versions and releases | Independent versions, package-qualified tags, release manifest | Agree how this replaces per-repository every-PR release rules |
 | D05 | Git history | Import full source histories without rewriting original repositories; rehearse a prefix/subtree merge | Verify history navigation, license retention, historical tag naming, and repository size |
-| D06 | Hosting | Local planning repo is named `openvax`; remote destination and visibility are unset | Choose GitHub organization/name and maintainers before creating a remote |
+| D06 | Hosting | `openvax/openvax2`, public, default branch `main` | Destination selected by the user; confirm package-specific ownership before source migration |
 | D07 | Cutover baseline | Import selected merged commits after ongoing PRs settle | Fill the readiness register with PR links, exact SHAs, releases, and owners |
 | D08 | Python and platforms | Preserve current package support; choose a common development interpreter | Verify actual wheel availability and tests for each supported combination |
 | D09 | Publishing authority | One release path per package using existing PyPI projects | Inventory current automation; test replacement publisher configuration before cutover |
