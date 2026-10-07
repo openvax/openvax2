@@ -5,16 +5,17 @@ implementation or permission to publish packages.
 
 ## Established direction
 
-- **Documentation first.** The user requested design planning now and an
-  implementation sweep after ongoing package PRs finish.
+- **Prepare now, migrate later.** The user requested design planning and release
+  preparation now, with package migration after ongoing PRs finish.
 - **Preserve individual PyPI packages.** This is the direction being evaluated;
   existing names and imports should continue working.
 - **Preserve the shared environment and local work.** The user's environment
   maintenance policy is recorded in [AGENTS.md](../AGENTS.md).
-- **Hosting.** The user selected `openvax/openvax2` on GitHub. The repository is
-  private pending an explicit public-visibility decision, with `main` as its
-  default branch. This changes the planning repository's location, not the
-  implementation scope.
+- **Hosting and license.** The user explicitly requested public visibility and
+  Apache 2.0 for `openvax/openvax2`. The default branch is `main`.
+- **Independent release gates.** Publish a distribution only when its own
+  version increases (or for an intentional first release); unchanged versions
+  are skipped. The read-only planner and its CI tests implement selection now.
 
 ## Decision register
 
@@ -23,14 +24,16 @@ implementation or permission to publish packages.
 | D01 | Initial members | Closely coupled core listed in the design; evaluate `serializable` and `mhcgnomes` with it | Confirm canonical repositories, ownership, coupling, and the final allowlist |
 | D02 | Adjacent projects | Keep MHCflurry, MHCseqs, Osteosarc, Oncoref, and PirlyGenes external initially | Confirm which change frequently enough with the core to justify inclusion; external constraints still matter |
 | D03 | Dependency manager | uv workspace for the compatible core | Resolve post-PR constraints in a fresh environment and record chosen uv/Python versions |
-| D04 | Versions and releases | Independent versions, package-qualified tags, release manifest | Agree how this replaces per-repository every-PR release rules |
+| D04 | Versions and releases | Independent versions, package-qualified tags, release manifest; unchanged versions never republished | Version gating requested by user; finish publisher and reconcile imported release rules at migration |
 | D05 | Git history | Import full source histories without rewriting original repositories; rehearse a prefix/subtree merge | Verify history navigation, license retention, historical tag naming, and repository size |
-| D06 | Hosting | `openvax/openvax2`, private, default branch `main` | Destination selected by the user; public visibility remains undecided; confirm package-specific ownership before source migration |
+| D06 | Hosting and license | `openvax/openvax2`, public, Apache 2.0, default branch `main` | Explicitly requested by user; preserve imported licenses and confirm package ownership at migration |
 | D07 | Cutover baseline | Import selected merged commits after ongoing PRs settle | Fill the readiness register with PR links, exact SHAs, releases, and owners |
 | D08 | Python and platforms | Preserve current package support; choose a common development interpreter | Verify actual wheel availability and tests for each supported combination |
 | D09 | Publishing authority | One release path per package using existing PyPI projects | Inventory current automation; test replacement publisher configuration before cutover |
 | D10 | Issues and docs | Preserve original URLs, link selected active issues into the new workflow, retain docs redirects | Decide tracking location and per-package documentation hosting |
 | D11 | Editables after migration | Switch paths deliberately only after wheel/workspace verification | Inventory existing editable paths and any local work; follow the shared environment policy |
+| D12 | Combined Python install | `openvax` metapackage with its own version and exact tested component pins | Recommended design; confirm PyPI name/ownership and core package set before first release |
+| D13 | Combined runtime | `ghcr.io/openvax/openvax2`, stack version plus image revision | Recommended design; validate Linux targets, production locks, native libraries, and external model/data acquisition |
 
 ## Evidence that would change the recommendation
 
