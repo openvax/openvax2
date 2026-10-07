@@ -5,6 +5,9 @@
 
 **One development repository. Independent Python packages. A tested combined stack.**
 
+Explore the [package atlas](https://openvax.github.io/openvax2/) for the workflow,
+package responsibilities, and interactive dependency map.
+
 OpenVax2 is the public home for planning the OpenVax monorepo: annotation,
 variant interpretation, peptide generation, MHC prediction, and vaccine ranking.
 The goal is to change related libraries in one PR while preserving their existing
@@ -85,6 +88,7 @@ version sources, retries, and the remaining production work.
 | Document | Purpose |
 | --- | --- |
 | [Contributing](CONTRIBUTING.md) | Individual and coordinated development |
+| [Package atlas website](docs/site.md) | Website content, local preview, and GitHub Pages deployment |
 | [Combined artifacts](docs/distribution.md) | Metapackage, locks, Docker, and data/model boundaries |
 | [Release policy](releases/README.md) | Publish only changed package versions |
 | [Design](docs/design.md) | Workspace, dependencies, validation, and architecture |

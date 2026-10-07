@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore how OpenVax libraries connect reference annotations, genomic variants, RNA evidence, MHC prediction, and vaccine candidate ranking.">
+  <meta name="theme-color" content="#183c56">
+  <title>OpenVax package atlas</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="./" aria-label="OpenVax package atlas home"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M5 8h8l6 8-6 8H5l6-8z" fill="currentColor"/><path d="M20 8h7l-6 8 6 8h-7l-6-8z" fill="#147d76"/></svg>OpenVax <span>Package atlas</span></a>
+    <nav aria-label="Main navigation"><a href="#workflow">Workflow</a><a href="#packages">Packages</a><a href="#install">Using the stack</a><a href="https://github.com/openvax/openvax2">GitHub <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="status"><span aria-hidden="true"></span>Existing libraries. A monorepo in preparation.</p>
+        <h1>From a variant to a vaccine candidate.</h1>
+        <p class="intro">A connected set of Python tools for interpreting variants, reconstructing RNA-supported proteins, and evaluating peptide candidates.</p>
+        <div class="hero-actions"><a class="button primary" href="#packages">Explore the packages</a><a class="text-link" href="#workflow">Follow the workflow</a></div>
+        <p class="hero-note">Use one library, or compose them into an analysis.</p>
+      </div>
+      <div class="sequence-figure" aria-label="Conceptual progression from genomic variants and RNA evidence to peptide predictions and ranked candidates">
+        <div class="figure-caption">Different questions. Connected tools.</div>
+        <div class="sequence-row"><span class="figure-number">1</span><div><strong>What changed?</strong><span>Reference context + genomic variants</span></div><div class="bases" aria-hidden="true"><i>A</i><i>C</i><i class="changed">T</i><i>G</i></div></div>
+        <div class="sequence-row"><span class="figure-number">2</span><div><strong>What is encoded?</strong><span>RNA-supported protein sequence</span></div><div class="protein" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>
+        <div class="sequence-row"><span class="figure-number">3</span><div><strong>Which candidates matter?</strong><span>Prediction, filtering + ranking</span></div><div class="ranks" aria-hidden="true"><i></i><i></i><i></i></div></div>
+        <p>Each layer keeps a focused responsibility.</p>
+      </div>
+    </section>
+
+    <section id="workflow" class="workflow-section">
+      <div class="wrap">
+        <div class="section-heading"><div><h2>Follow the information.</h2><p>A representative variant-to-candidate workflow. The stages show information flow rather than Python dependency declarations.</p></div><span class="small-note">Reference data and MHC identity support the whole analysis.</span></div>
+        <ol class="workflow">
+          <li><span class="step">1</span><h3>Find the context</h3><p>Load annotation features and query genes, transcripts, and sequences.</p><div><a data-select="gtfparse" href="https://github.com/openvax/gtfparse">gtfparse</a><a data-select="pyensembl" href="https://github.com/openvax/pyensembl">pyensembl</a></div></li>
+          <li><span class="step">2</span><h3>Interpret the variant</h3><p>Predict transcript consequences and the protein changes they imply.</p><div><a data-select="varcode" href="https://github.com/openvax/varcode">varcode</a></div></li>
+          <li><span class="step">3</span><h3>Bring in RNA evidence</h3><p>Reconstruct mutant protein sequences supported by observed reads.</p><div><a data-select="isovar" href="https://github.com/openvax/isovar">isovar</a></div></li>
+          <li><span class="step">4</span><h3>Evaluate peptides</h3><p>Run predictors, then filter and prioritize candidate peptides.</p><div><a data-select="mhctools" href="https://github.com/openvax/mhctools">mhctools</a><a data-select="topiary" href="https://github.com/openvax/topiary">topiary</a></div></li>
+          <li><span class="step">5</span><h3>Rank and report</h3><p>Combine evidence into ranked vaccine candidates and reports.</p><div><a data-select="vaxrank" href="https://github.com/openvax/vaxrank">vaxrank</a></div></li>
+        </ol>
+        <p class="workflow-note">Other entry points work too: start with protein sequences in Topiary, use MHCflurry directly for prediction, or query PyEnsembl without a vaccine workflow.</p>
+      </div>
+    </section>
+
+    <section id="packages" class="atlas-section wrap">
+      <div class="section-heading"><div><h2>A place for every package.</h2><p>Select a package to see what it does and how its neighbors use it.</p></div><a class="text-link" href="https://github.com/openvax/openvax2/blob/main/docs/inventory.md">View the source inventory</a></div>
+      <div class="atlas-tools"><label for="package-search">Find a package or task<input id="package-search" type="search" placeholder="Try RNA, alleles, or caching" autocomplete="off" disabled></label><div class="legend" aria-label="Relationship legend"><span><i class="selected-key"></i>Selected</span><span><i class="dependency-key"></i>Depends on</span><span><i class="consumer-key"></i>Used by</span></div></div>
+      <div class="atlas-layout">
+        <div><p id="search-status" class="small-note" role="status">Loading the package map…</p><div id="package-map" class="package-map"></div><div id="empty-search" hidden><p>No packages match that search.</p><button id="clear-search" class="button secondary">Clear search</button></div></div>
+        <aside id="package-detail" class="package-detail" aria-labelledby="detail-name" aria-live="polite" aria-atomic="true"><p class="detail-category">Selection and reporting</p><h3 id="detail-name">Vaxrank</h3><p>Brings variant interpretation, peptide evidence, and prediction together for neoantigen ranking.</p><a href="https://github.com/openvax/vaxrank">Read the Vaxrank documentation</a></aside>
+      </div>
+      <p class="snapshot-note">Dependency relationships are a selected snapshot from October 7, 2026. Only direct runtime links among these 16 packages are shown; optional, test, and third-party dependencies are omitted. Package membership in the future monorepo is still being decided.</p>
+      <details class="source-directory"><summary>Browse all package repositories</summary><ul id="repository-directory">
+        <li><a href="https://github.com/openvax/gtfparse">GTFparse</a> — GTF annotation parsing</li>
+        <li><a href="https://github.com/openvax/pyensembl">PyEnsembl</a> — reference genes and sequences</li>
+        <li><a href="https://github.com/openvax/varcode">Varcode</a> — variant consequences</li>
+        <li><a href="https://github.com/openvax/isovar">Isovar</a> — RNA-supported mutant proteins</li>
+        <li><a href="https://github.com/pirl-unc/mhcgnomes">MHCgnomes</a> — MHC allele identity</li>
+        <li><a href="https://github.com/pirl-unc/mhcseqs">MHCseqs</a> — curated MHC sequences</li>
+        <li><a href="https://github.com/openvax/mhcflurry">MHCflurry</a> — class I prediction models</li>
+        <li><a href="https://github.com/openvax/mhctools">MHCTools</a> — shared predictor interfaces</li>
+        <li><a href="https://github.com/openvax/topiary">Topiary</a> — peptide filtering and prioritization</li>
+        <li><a href="https://github.com/openvax/vaxrank">Vaxrank</a> — candidate ranking and reporting</li>
+        <li><a href="https://github.com/openvax/datacache">DataCache</a> — data acquisition and caches</li>
+        <li><a href="https://github.com/iskandr/serializable">Serializable</a> — object serialization</li>
+        <li><a href="https://github.com/openvax/sercol">Sercol</a> — collection helpers</li>
+        <li><a href="https://github.com/iskandr/osteosarc">Osteosarc</a> — research data and read fixtures</li>
+        <li><a href="https://github.com/pirl-unc/oncoref">Oncoref</a> — cancer reference facts</li>
+        <li><a href="https://github.com/pirl-unc/pirlygenes">PirlyGenes</a> — curated gene panels</li>
+      </ul></details>
+      <noscript><p>The repository directory above works without JavaScript. Enable JavaScript to search packages and highlight their relationships.</p></noscript>
+    </section>
+
+    <section id="install" class="distribution-section"><div class="wrap">
+      <div class="section-heading"><div><h2>One ecosystem. Three ways in.</h2><p>Individual libraries stay useful on their own. The combined products will make a tested stack easier to install and run.</p></div></div>
+      <div class="distribution-grid">
+        <article><span class="availability available">Available upstream</span><h3>A library for your task</h3><p>Install just the package you need, with its declared dependencies. Its imports, CLI, and version remain independent.</p><code>pip install varcode</code><a href="https://pypi.org/project/varcode/">See Varcode on PyPI</a></article>
+        <article><span class="availability planned">Planned</span><h3>A tested Python stack</h3><p>An <strong>openvax metapackage</strong> will select exact, tested component versions. It adds dependency metadata, not duplicate library code.</p><code>pip install openvax</code><small>Future interface; not published by this project yet.</small></article>
+        <article><span class="availability planned">Planned</span><h3>A complete runtime</h3><p>A <strong>Docker image</strong> will add locked Python dependencies and required system libraries. Use an image digest for a reproducible runtime.</p><code>ghcr.io/openvax/openvax2</code><small>Model bundles, references, and user data stay explicit inputs.</small></article>
+      </div>
+      <a class="text-link" href="https://github.com/openvax/openvax2/blob/main/docs/distribution.md">Read the distribution design</a>
+    </div></section>
+
+    <section id="development" class="development-section wrap">
+      <div><h2>Develop together.<br>Release independently.</h2><p>One PR can update a producer and its consumers. Each package keeps its own tests, public API, dependency metadata, and version.</p><p>The release planner selects a package only when its version increases. A documentation change or another package’s release does not republish unchanged libraries.</p><a class="button secondary" href="https://github.com/openvax/openvax2/blob/main/CONTRIBUTING.md">Development guide</a></div>
+      <div class="release-example"><p class="example-label">An illustrative coordinated change</p><div><span>varcode</span><span>Version increased</span><strong>Release</strong></div><div><span>isovar</span><span>Consumer adapted</span><strong>Release after its bump</strong></div><div><span>gtfparse</span><span>Version unchanged</span><strong class="unchanged">Skip</strong></div><p>Update the metapackage separately when the new combination is tested. An OS-only fix can produce a new image revision without new Python releases.</p></div>
+    </section>
+
+    <section class="next-section wrap"><div><h2>The next step is migration.</h2><p>Package PRs finish in their current repositories first. OpenVax2 already holds the design and version-selection tooling; package imports, publishing, and combined artifacts follow the migration plan.</p></div><a class="button primary" href="https://github.com/openvax/openvax2/blob/main/docs/migration-plan.md">See the migration plan</a></section>
+  </main>
+  <footer class="site-footer wrap"><span>OpenVax2 · Package atlas</span><div><a href="https://github.com/openvax/openvax2">Source on GitHub</a><a href="https://github.com/openvax/openvax2/blob/main/LICENSE">Apache 2.0</a><a href="https://github.com/openvax/openvax2/issues">Suggest a correction</a></div></footer>
+</body>
+</html>
