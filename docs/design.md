@@ -144,7 +144,8 @@ updates. If a consumer starts requiring a new producer version, its changed
 dependency metadata requires a consumer release even if its code is unchanged.
 An unchanged consumer whose existing bounds still apply does not need a release.
 Root planning and tooling documentation alone should not release every package.
-The user explicitly requested version-gated publishing. This policy must replace
+
+The maintainer explicitly requested version-gated publishing. This policy must replace
 conflicting imported instructions during migration. The current read-only
 [release planner](../releases/README.md) selects version increases against a
 recorded published baseline; the production publisher remains future work.

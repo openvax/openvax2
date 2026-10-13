@@ -14,11 +14,12 @@ python3 -m venv .venv
 git diff --check
 ```
 
-The current plan should contain empty `publish` and `skip` arrays. Do not invent
-placeholder package versions, create empty PyPI projects, or migrate source just
-to populate the registry. Root documentation/tooling changes do not require
-library version bumps. Preserve the shared environment as described in
-[AGENTS.md](AGENTS.md).
+The current plan should contain empty `publish` and `skip` arrays.
+
+Root documentation and tooling changes do not require library version bumps.
+Do not invent placeholder package versions, create empty PyPI projects, or
+migrate source just to populate the registry. Preserve the shared environment
+as described in [AGENTS.md](AGENTS.md).
 
 ## After migration: work on one package
 
@@ -34,12 +35,13 @@ cd packages/varcode
 uv run --package varcode --group test python -m pytest tests
 ```
 
-Workspace dependencies resolve to sibling source, so editing `pyensembl` can be
-tested immediately through `varcode`. Selecting one member does not create a
-separate virtual environment per member. Preserve each package's established
-lint/test wrapper where it supplies required environment or fixture setup;
-the direct pytest command above is the simple case.
-[uv workspace behavior](https://docs.astral.sh/uv/concepts/projects/workspaces/)
+Workspace dependencies resolve to sibling source, so an edit to `pyensembl`
+can be tested immediately through `varcode`. Selecting one member does not
+create a separate virtual environment for it; see
+[uv workspace behavior](https://docs.astral.sh/uv/concepts/projects/workspaces/).
+
+The direct pytest command above is the simple case. Where a package has its
+own lint or test wrapper that sets up its environment or fixtures, keep using it.
 
 For a public API change, identify and test transitive consumers. CI initially
 runs all core suites, then may select affected suites once dependency tracking
@@ -47,22 +49,28 @@ is proven. Do not remove a compatibility bound merely to make a local sync pass.
 
 ## Independent-package validation
 
-Build from the package directory with workspace sources disabled, then test the
-wheel in a fresh environment outside the checkout. For example, after migration:
+A workspace install can hide missing dependencies, so check each changed
+package as a standalone wheel. After migration:
 
-```sh
-# Run from packages/varcode; uv must be available on PATH.
-uv build --no-sources --out-dir /tmp/openvax-varcode-dist
-```
+1. Build from the package directory with workspace sources disabled:
 
-Install the resulting exact wheel into a dedicated test environment and run
-`python -m pip check`, import/CLI/resource checks, and its behavioral tests without
-editable installs or `PYTHONPATH` pointing at source. Build from the sdist too.
-If the change needs an unreleased sibling, install its candidate wheel in the
-same clean environment. A separate lane checks compatibility with released
-dependencies where applicable. The build flag alone does not test runtime
-dependency correctness.
-[uv build guidance](https://docs.astral.sh/uv/guides/package/)
+   ```sh
+   # Run from packages/varcode; uv must be available on PATH.
+   uv build --no-sources --out-dir /tmp/openvax-varcode-dist
+   ```
+
+2. Install that exact wheel into a fresh environment outside the checkout, with
+   no editable installs and no `PYTHONPATH` pointing at source. If the change
+   needs an unreleased sibling, install its candidate wheel in the same
+   environment.
+3. Run `python -m pip check`, import, CLI, and resource checks, and the
+   package's behavioral tests.
+4. Build a wheel from the sdist as well and check it the same way.
+
+`--no-sources` only checks that the build does not rely on workspace sources;
+steps 2 to 4 test the runtime dependencies. A separate validation lane checks
+compatibility with released dependencies where applicable. See
+[uv build guidance](https://docs.astral.sh/uv/guides/package/).
 
 ## Cross-package PRs and versions
 
