@@ -2,7 +2,7 @@
 
 Status: design and release preparation, 2026-10-07. Package migration and
 production publishing remain pending. Ongoing PR completion is a prerequisite,
-not something this task has verified. See the [design](design.md) and
+not something this plan has verified. See the [design](design.md) and
 [decisions](decisions.md).
 
 ## Phase 0: planning deliverables
@@ -43,7 +43,7 @@ may be marked not applicable with a reason. No blank entry means ready.
   and migration access before source import.
 
 Exit evidence: per-package readiness rows, a selected compatible source set, and
-an explicit user request to begin the implementation sweep.
+an explicit maintainer request to begin the implementation sweep.
 
 ## Phase 2: import and establish the workspace
 

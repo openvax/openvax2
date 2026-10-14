@@ -9,16 +9,18 @@ that directory from `main`. It does not build or upload Python distributions.
 Audience: developers and researchers deciding which package handles a task and
 how the packages compose. Start with the conceptual variant-to-candidate
 workflow, then provide a searchable package map, installation choices, and the
-development/release model. Keep existing packages and planned products distinct. Use descriptive technical
-headings and factual explanations; avoid slogans and promotional phrasing.
+development/release model. Keep existing packages and planned products distinct.
+Use descriptive technical headings and factual explanations; avoid slogans and
+promotional phrasing.
 
-Visual direction: a light scientific atlas with a diagram-led introduction,
-grouped package controls, and a persistent detail panel. Palette: ink `#183c56`,
-paper white `#ffffff`, pale blue `#eaf3f9`, teal `#147d76`, pale teal `#e6f4ef`,
-and amber `#875b17`. Trebuchet headings give the page a humanist shape; Aptos or
-the system sans face handles body text. Left-aligned copy, short lines, visible
-keyboard focus, and text labels for every relationship make the map readable.
-Motion only follows navigation, and respects reduced-motion preferences.
+Layout: a diagram-led introduction, grouped package controls, and a persistent
+detail panel. Use left-aligned copy, short lines, visible keyboard focus, and a
+text label for every relationship. Motion only follows navigation and respects
+reduced-motion preferences.
+
+- Palette: ink `#183c56`, paper white `#ffffff`, pale blue `#eaf3f9`, teal
+  `#147d76`, pale teal `#e6f4ef`, and amber `#875b17`.
+- Type: Trebuchet for headings; Aptos or the system sans face for body text.
 
 ```text
 Navigation
