@@ -19,6 +19,11 @@ Ongoing PRs continue in each library's original repository until the
 implementation sweep. The [source inventory](docs/inventory.md) records a dated
 planning snapshot.
 
+For the earlier end-to-end Snakemake/Docker workflow used in the Mount Sinai
+PGV-001 trials—which still receives occasional maintenance fixes for ongoing
+use, though it is not the basis for new development in OpenVax2—see
+[neoantigen-vaccine-pipeline](https://github.com/openvax/neoantigen-vaccine-pipeline).
+
 To use OpenVax now, install the individual packages from PyPI, for example:
 
 ```sh
